@@ -1,0 +1,23 @@
+{
+  "name": "wasmmeshbridge",
+  "version": "1.0.0",
+  "description": "Bridge between Mesh and an another network. This bridge allows a computer for reading data from a microcontroller via serial communication and transmitting message via MQTT.  Requirements: NodeJS, serial port like USB, WiFi or Ethernet for transmission",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/internet-of-production/WasmMeshBridge.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/internet-of-production/WasmMeshBridge/issues"
+  },
+  "homepage": "https://github.com/internet-of-production/WasmMeshBridge#readme",
+  "dependencies": {
+    "mqtt": "^4.3.7",
+    "serialport": "^10.4.0"
+  }
+}
