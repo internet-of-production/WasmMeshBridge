@@ -5,18 +5,9 @@ let total:f64 = 0;
 let aggrVolume:f64 = 5; // #aggregated data 
 let dataReadyFlag:i32 = 0;
 
-function bytesToNum(num1:u8,num2:u8,num3:u8,num4:u8):i32{
-    let convertedValue:i32= num4
-    convertedValue = (convertedValue<<8) + num3
-    convertedValue = (convertedValue<<8) + num2
-    convertedValue = (convertedValue<<8) + num1
-    return convertedValue;
-  }
-
 //Aggregate data and calculate average
-export function calcWasm(b1: u8, b2:u8, b3:u8, b4:u8): f64 {
-    let dataValue:i32 = bytesToNum(b1, b2, b3, b4);
-    total += dataValue;
+export function calcWasm(data: i32): f64 {
+    total += data;
     counter++;
     if(counter>=aggrVolume){
         let result:f64 = total/aggrVolume;
