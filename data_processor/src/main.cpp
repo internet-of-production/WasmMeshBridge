@@ -155,7 +155,7 @@ void receivedCallback( uint32_t from, String &msg ) {
     mesh.sendSingle(destNode, msg);
     dataReadyFlag = 0;
   }
-  //free(buffer);
+  free(buffer);
 }
 
 void newConnectionCallback(uint32_t nodeId) {
