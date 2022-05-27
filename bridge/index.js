@@ -1,4 +1,5 @@
 const {SerialPort} = require('serialport');
+const { ReadlineParser } = require('@serialport/parser-readline');
 
 //Set your serial port path
 const port = new SerialPort({
@@ -27,18 +28,19 @@ const serial_read = function() {
             }
         })
     })
- 
-    port.on('data', function (data) {
-        console.log('Data:', data)
+
+    const parser = port.pipe(new ReadlineParser({ delimiter: '\n' })) //Use Serial.println in arduino code. Otherwise, messages can not be delimited.
+    parser.on('data', function(data){
+        console.log('Data: '+ data);
         mqtt_publish(data)
-    })
+    });
       
 }
 
 //MQTT
 const mqtt = require('mqtt')
 const topic = 'WasmMesh'
-const subTopic = "SET_YOUR_TOPIC"
+const subTopic = "WasmMesh"
 //APPLY YOUR SETTING 
 const options = {
     clientId: "MeshBridge",
@@ -58,7 +60,7 @@ const client  = mqtt.connect(options);
 //const client = mqtt.connect('mqtt://broker.emqx.io');
 
 //Subscribe the broker
-/*client.on('connect', function () {
+client.on('connect', function () {
     client.subscribe(subTopic, function (err) {
         if (!err) {
             console.log('Connected')
@@ -66,18 +68,11 @@ const client  = mqtt.connect(options);
     })
 })
 
-//Listening messages from the broker
 client.on('message', function (subTopic, message) {
     // message is Buffer
-    if(message.toString()==='EndConnection'){
-        client.end()
-    }
-    //if(arrivalCounter<MEASURE_TIMES){
-        client.publish('RTTEnd',performance.now().toString())
-    //}
-    //arrivalCounter++
-
-});*/
+    console.log("Subscribe: " + message)
+    //client.end()
+})
 
 //Display Errors
 client.on('error', function(err) {
@@ -89,7 +84,7 @@ const mqtt_publish = function (msg){
     if(!client.connected){
         client.reconnect()
     }
-    client.publish(topic, msg)
+    client.publish(topic, msg.toString())
 }
 
 serial_read()

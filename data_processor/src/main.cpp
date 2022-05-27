@@ -37,7 +37,7 @@ Scheduler userScheduler; // to control your personal task
 namedMesh  mesh;
 
 String nodeName = "processorNode";
-String destNode = "generatorNode"; //message destination, TOOO: SET root node ID!!
+String destNode = "receiverNode"; //message destination, TOOO: SET root node ID!!
 String msg = "";
 
 /**
