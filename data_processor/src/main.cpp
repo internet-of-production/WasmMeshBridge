@@ -40,21 +40,6 @@ String nodeName = "processorNode";
 String destNode = "receiverNode"; //message destination, TOOO: SET root node ID!!
 String msg = "";
 
-/**
- * @fn 
- * Get WiFi channel
- * @param ssid SSID of the router (const char*)
- */
-int32_t getWiFiChannel(const char *ssid) {
-  if (int32_t n = WiFi.scanNetworks()) {
-      for (uint8_t i=0; i<n; i++) {
-          if (!strcmp(ssid, WiFi.SSID(i).c_str())) {
-              return WiFi.channel(i);
-          }
-      }
-  }
-  return 0;
-}
 
 /**
  * @fn 
@@ -170,7 +155,7 @@ void receivedCallback( uint32_t from, String &msg ) {
     mesh.sendSingle(destNode, msg);
     dataReadyFlag = 0;
   }
-  free(buffer);
+  //free(buffer);
 }
 
 void newConnectionCallback(uint32_t nodeId) {
