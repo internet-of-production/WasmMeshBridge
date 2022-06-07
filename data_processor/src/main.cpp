@@ -112,15 +112,13 @@ static void run_wasm(void*)
       i_argptrs[i] = &inputBytes[i];
     }
 
-    Serial.print("Input length: ");
-    Serial.println(len);
 
     /*
     m3_Call(function, number_of_arguments, arguments_array)
     To get return, one have to call a function with m3_Call first, then call m3_GetResultsV(function, adress).
     (Apparently) m3_Call stores the result in the liner memory, then m3_GetResultsV accesses the address.
     */
-    result = m3_Call(calcWasm,len,i_argptrs);                       
+    result = m3_Call(calcWasm,1,i_argptrs);  //number of arguments is 1 but length of i_argptrs is 4 because of i32 type. (Depends on the AssemblyScript code)                     
     if(result){
       FATAL("m3_Call(calcWasm):", result);
     }
