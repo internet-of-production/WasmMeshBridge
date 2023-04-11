@@ -15,3 +15,8 @@ graph LR
 - Processor (ESP32): The processor gets data from the generator and calculate average using WebAssembly module.
 - Receiver (ESP32): This node requires serial connection with a PC like RaspberryPi. It reveives data from the processor and send them via serial communication.
 - Bridge (PC / RaspberryPi): A bridge between Mesh and an another network, for example, MQTT communication. It allows for reading data from a MCU via serial communication and transmitting message via MQTT. The program requires NodeJS, serial port like USB, and WiFi or Ethernet.
+
+##Limitaion
+Over-the-air update of Wasm is impossible. 
+- WiFi: Simultatneous connection to a router is unstable. Therefore, loading Web IDE provided by embedded WebServer fails because html cannot get Wasm IDE without the internet.
+- BLE: Detailed setting is impossible in the arduino framework. One should use the ESP-IDF framework instead, but painlessMesh is not for ESP-IDF.
